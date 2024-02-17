@@ -1,7 +1,7 @@
-export default function main(req, res) {
+export default async function main(req, res) {
   const { url: try_url } = req.query;
   if (!decodeURIComponent(try_url + "").match(/^https:\/\//)) res.send(JSON.stringify({}));
-  fetch(decodeURIComponent(try_url))
+  const ogp = await fetch(decodeURIComponent(try_url))
     .then(text => {
       const el = new DOMParser().parseFromString(text, "text/html");
       const ogp = {};
@@ -13,5 +13,5 @@ export default function main(req, res) {
       ogp["image"] = ogp["image"].match(/:\/\//) ? ogp["image"] : ogp["url"] + ogp["image"];
       return ogp;
     })
-    .then(ogp => res.send(ogp))
+  res.send(ogp);
 }
