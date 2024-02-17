@@ -1,7 +1,7 @@
 export default function main(req, res) {
   const { url: try_url } = req.query;
-  if (!(try_url + "").match(/^https:\/\//)) res.send(JSON.stringify({}));
-  fetch(try_url)
+  if (!decodeURIComponent(try_url + "").match(/^https:\/\//)) res.send(JSON.stringify({}));
+  fetch(decodeURIComponent(try_url))
     .then(text => {
       const el = new DOMParser().parseFromString(text, "text/html");
       const ogp = {};
