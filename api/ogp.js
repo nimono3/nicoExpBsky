@@ -1,3 +1,5 @@
+import fetch from '@vercel/fetch';
+
 export default async function main(req, res) {
   const { url: try_url } = req.query;
   if (!decodeURIComponent(try_url + "").match(/^https:\/\//)) res.send(JSON.stringify({}));
