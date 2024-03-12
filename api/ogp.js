@@ -1,9 +1,9 @@
 import fetch from '@vercel/fetch';
 
-export default async function main(req, res) {
+export default function main(req, res) {
   const { url: try_url } = req.query;
   if (!decodeURIComponent(try_url + "").match(/^https:\/\//)) res.send(JSON.stringify({}));
-  const ogp = await fetch(decodeURIComponent(try_url))
+  const ogp = fetch(decodeURIComponent(try_url))
     .then(text => {
       const el = new DOMParser().parseFromString(text, "text/html");
       const ogp = {};
